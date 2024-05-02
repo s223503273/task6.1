@@ -52,7 +52,6 @@ pipeline {
                 mail to: 'vaibhavasharma2@gmail.com',
                 body: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n\nCheck console output at ${env.BUILD_URL} to view logs.",
                 subject: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                attachmentsPattern: 'logs/**'
         }
     }
 }
