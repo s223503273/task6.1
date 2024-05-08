@@ -47,7 +47,6 @@ pipeline {
     }
 
     post {
-        post {
         always {
             script {
                 // Define the pattern to match log files
@@ -62,4 +61,4 @@ pipeline {
         }
     }
 }
- }
+
