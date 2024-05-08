@@ -47,14 +47,17 @@ pipeline {
     }
 
     post {
+        post {
         always {
             script {
-                def artifactName = 'logs/*.log' // Adjust the pattern according to your log file location
-                emailext attachLog: true,
+                // Define the pattern to match log files
+                def artifactPattern = 'logs/*.log'
+
+                // Send email with attached log files
+                emailext attachmentsPattern: artifactPattern,
                           body: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n\nCheck console output at ${env.BUILD_URL} to view logs.",
                           subject: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                          to: 'vaibhavasharma2@gmail.com',
-                          attachmentsPattern: artifactName
+                          to: 'vaibhavasharma2@gmail.com'
             }
         }
     }
