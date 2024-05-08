@@ -49,15 +49,12 @@ pipeline {
     post {
         always {
             script {
-                def attachments = []
-                // Add log files as attachments
-                attachments.add(fileAttachment('logs/build.log')) // Adjust the path according to your log file location
-
-                // Send notification email with attachments
-                mail to: 'vaibhavasharma2@gmail.com',
-                     subject: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                     body: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n\nCheck console output at ${env.BUILD_URL} to view logs.",
-                     attachments: attachments
+                def artifactName = 'logs/*.log' // Adjust the pattern according to your log file location
+                emailext attachLog: true,
+                          body: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n\nCheck console output at ${env.BUILD_URL} to view logs.",
+                          subject: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                          to: 'vaibhavasharma2@gmail.com',
+                          attachmentsPattern: artifactName
             }
         }
     }
