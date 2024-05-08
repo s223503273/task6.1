@@ -49,7 +49,7 @@ pipeline {
     post {
         always {
             // Send notification emails at the end of test and security scan stages
-                mail to: 'vaibhavasharma2@gmail.com',
+                mail to: 'vaibhavasharma2@gmail.com', attachLog:true,
                 subject: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                 body: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n\nCheck console output at ${env.BUILD_URL} to view logs."
         }
