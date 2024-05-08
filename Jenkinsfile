@@ -48,11 +48,17 @@ pipeline {
 
     post {
         always {
-            // Send notification emails at the end of test and security scan stages
-            emailext attachmentsPattern: 'logs/*.log', // Change the pattern according to your log file location
-                      body: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n\nCheck console output at ${env.BUILD_URL} to view logs.",
-                      subject: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                      to: 'vaibhavasharma2@gmail.com'
+            script {
+                def attachments = []
+                // Add log files as attachments
+                attachments.add(fileAttachment('logs/build.log')) // Adjust the path according to your log file location
+
+                // Send notification email with attachments
+                mail to: 'vaibhavasharma2@gmail.com',
+                     subject: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                     body: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n\nCheck console output at ${env.BUILD_URL} to view logs.",
+                     attachments: attachments
+            }
         }
     }
 }
