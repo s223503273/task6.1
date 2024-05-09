@@ -48,17 +48,11 @@ pipeline {
 
     post {
         always {
-            script {
-                // Define the pattern to match log files
-                def artifactPattern = 'logs/*.log'
-
-                // Send email with attached log files
-                emailext attachmentsPattern: artifactPattern,
-                          body: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n\nCheck console output at ${env.BUILD_URL} to view logs.",
-                          subject: "${currentBuild.result}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                          to: 'vaibhavasharma2@gmail.com'
-            }
-        }
+            // Send notification emails at the end of test and security scan stages
+                emailext attachLog: true, body: "${currentBuild.result}: ${BUILD_URL}", compressLog: true, 
+                         subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", to: 'sumitsainiuiet@gmail.com'
+                }
+                
     }
 }
 
