@@ -50,7 +50,7 @@ pipeline {
         always {
             // Send notification emails at the end of test and security scan stages
                 emailext attachLog: true, body: "${currentBuild.result}: ${BUILD_URL}", compressLog: true, 
-                         subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", to: 'sumitsainiuiet@gmail.com'
+                         subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", to: 'vaibhavasharma2@gmail.com'
                 }
                 
     }
